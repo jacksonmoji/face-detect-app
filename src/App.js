@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import Navigation from './components/Navigation/Navigation';
 import FaceRecognition from './components/FaceRecognition/FaceRecognition';
 import ImageLinkForm from './components/ImageLinkForm/ImageLinkForm';
+/*import Axios from 'axios';*/
 /*import Rank from './components/Rank/Rank';*/
 
 import Particles from 'react-particles-js';
@@ -35,6 +36,9 @@ class App extends Component {
        input: '',
        image_url: '',
        box: {},
+       image_upload: null,
+       file: '',
+       imagePreviewUrl: ''
     }
   }
 
@@ -52,13 +56,29 @@ class App extends Component {
     }
   }
 
+  onFileSelected = (event) => {
+
+    let reader = new FileReader();
+    let file = event.target.files[0];
+
+    reader.onloadend = () => {
+       this.setState({ 
+        file: file,
+        imagePreviewUrl: reader.result
+       })
+    }
+    
+    console.log(reader.readAsDataURL(file))
+    
+  }
+
   displayFaceBox = (box) => {
      console.log(box);
      this.setState({ box: box})
   }
 
-  onInputChange = (event) => {
-      this.setState({ input: event.target.value});
+  onInputChange = () => {
+      this.setState({ input: this.state.image_upload});
   }
 
   onSubmitClick = (event) => {
@@ -84,8 +104,8 @@ class App extends Component {
 
       <Navigation/>
      
-      <FaceRecognition box={this.state.box} image_url={ this.state.image_url}/>  
-      <ImageLinkForm onInputChange = {this.onInputChange} onSubmitClick={this.onSubmitClick}/>
+      <FaceRecognition box={this.state.box} imagePreviewUrl={this.state.imagePreviewUrl}/>  
+      <ImageLinkForm onFileSelected={this.onFileSelected} onInputChange = {this.onInputChange} onSubmitClick={this.onSubmitClick}/>
    
       </div>
     );
