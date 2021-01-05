@@ -4,7 +4,7 @@
   "private": true,
   "homepage": "https://jacksonmoji.github.io/face-detect-app",
   "dependencies": {
-    "axios": "^0.18.0",
+    "axios": "^0.21.1",
     "clarifai": "^2.8.0",
     "gh-pages": "^1.2.0",
     "react": "^16.4.1",
